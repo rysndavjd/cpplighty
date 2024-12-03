@@ -12,6 +12,12 @@ int list_devices() {
             if (std::filesystem::exists(path) && std::filesystem::is_directory(path)) {
                 for (const auto& entry : std::filesystem::directory_iterator(path)) {
                     if (std::filesystem::is_symlink(entry.symlink_status())) {
+                        if (entry.path().string().find("::numlock") != std::string::npos || 
+                            entry.path().string().find("::scrolllock") != std::string::npos || 
+                            entry.path().string().find("::capslock") != std::string::npos) {
+                            
+                            continue;
+                        }
                         std::cout << entry.path().string() << std::endl; 
                     }
                 }
