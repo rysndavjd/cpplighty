@@ -136,8 +136,8 @@ std::string check_backlight(std::string device) {
 }
 
 void help() {
-    std::cout << "usage: cpplighty [--help] [--list] [--device DEVICE] [--get] [--get-steps]" << std::endl;
-    std::cout << "                 [--set PERCENT] [--inc PERCENT] [--dec PERCENT]" << std::endl;
+    std::cout << "usage: cpplighty [--help] [--version] [--list] [--device DEVICE] [--get]" << std::endl;
+    std::cout << "                 [--get-steps] [--set PERCENT] [--inc PERCENT] [--dec PERCENT] " << std::endl;
 
 }
 
@@ -156,6 +156,9 @@ int main(int argc, char *argv[]) {
     for (int i = 1; i < argc; i++) {
         if (strcmp(argv[i], "--help") == 0 || strcmp(argv[i], "-h") == 0) {
             help();
+            return 0;
+        } else if (strcmp(argv[i], "--version") == 0 || strcmp(argv[i], "-v") == 0) {
+            std::cout << VERSION << std::endl;
             return 0;
         } else if (strcmp(argv[i], "--list") == 0) {
             list_devices();

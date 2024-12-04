@@ -1,4 +1,4 @@
-VERSION = 1.0
+VERSION = 1.1
 PREFIX ?= /usr
-CXXFLAGS = -std=c++17 -Wall -Wextra -Os
+CXXFLAGS = -std=c++17 -Wall -Wextra -Os -DVERSION=\"${VERSION}\"
 CXX = g++
