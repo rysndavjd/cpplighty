@@ -14,21 +14,22 @@ cpplighty:
 
 clean:
 	rm -f cpplighty
+	rm -f cpplighty-*.tar.gz
 
 release: clean
 	mkdir -p cpplighty-${VERSION}
 	cp -R LICENSE Makefile README.md config.mk ${SRC} \
-		cpplighty-${VERSION}
+		90-backlight.rules cpplighty-${VERSION}
 	tar -cf cpplighty-${VERSION}.tar cpplighty-${VERSION}
 	gzip cpplighty-${VERSION}.tar
 	rm -rf cpplighty-${VERSION}
 
 install: all
-	mkdir -p /usr/bin/
-	cp ./cpplighty /usr/bin/cpplighty
-	chmod 755 /usr/bin/cpplighty
+	mkdir -p $(DESTDIR)${PREFIX}/bin/
+	cp ./cpplighty $(DESTDIR)${PREFIX}/bin/cpplighty
+	chmod 755 $(DESTDIR)${PREFIX}/bin/cpplighty
 
 uninstall:
-	rm /usr/bin/cpplighty
+	rm $(DESTDIR)${PREFIX}/bin/cpplighty
 
 .PHONY: all options clean release install uninstall
