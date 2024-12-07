@@ -1,0 +1,56 @@
+#!/sbin/openrc-run
+# Copyright 1999-2024 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+dir=/var/lib/cpplighty
+extra_commands="save restore checkconf"
+
+depend() {
+	need localmount
+	after bootmisc modules isapnp coldplug hotplug
+}
+
+checkconf() {
+    if [ -z "$(echo "${DEVICES}" | tr -d '[:space:]')" ]; then
+        ewarn "No devices specified in .confd"
+	    eend 0
+        return 0
+    fi
+}
+
+restore() {
+    checkconf
+    for device in ${DEVICES}; do
+	    if [ ! -r "${dir}/$(basename ${device})" ] ; then
+	    	ewarn "No brightness level in ${dir}/$(basename ${device})"
+	    	eend 0
+	    	return 0
+		fi
+	    ebegin "Restoring brightness for ${device}"
+	    cpplighty --device "${device}" --set "$(cat "${dir}/$(basename ${device})")"
+	    ewend $? "Could not restore brightness for ${device}"
+    done
+}
+
+save() {
+    checkconf
+    for device in ${DEVICES}; do
+	    local newValue
+	    ebegin "Saving brightness level for ${device}"
+	    newValue=$(cpplighty --device "$(basename ${device})" --get) && \
+	    	mkdir -p "${dir}" && \
+	    	echo "${newValue}" > "${dir}/$(basename ${device})"
+	    if [ $? -gt 0 ]; then
+	    	ewarn "Could not save brightness for ${device}"
+	    fi
+	    eend 0
+    done
+}
+
+start() {
+    restore
+}
+
+stop() {
+    save
+}

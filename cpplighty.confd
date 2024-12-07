@@ -1,0 +1,5 @@
+#A space separated list of devices to save and restore brightness for.
+#You can list device with absolute path like "/sys/class/backlight/apple-panel-bl"
+#OR you can just specify just the device "apple-panel-bl"
+
+DEVICES=""
