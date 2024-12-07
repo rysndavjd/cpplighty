@@ -19,7 +19,7 @@ clean:
 release: clean
 	mkdir -p cpplighty-${VERSION}
 	cp -R LICENSE Makefile README.md config.mk ${SRC} \
-		90-backlight.rules cpplighty-${VERSION}
+		50-cpplighty.rules cpplighty-${VERSION}
 	tar -cf cpplighty-${VERSION}.tar cpplighty-${VERSION}
 	gzip cpplighty-${VERSION}.tar
 	rm -rf cpplighty-${VERSION}
