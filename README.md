@@ -17,3 +17,10 @@ to the following directory.
 ```
 /etc/udev/rules.d/
 ```
+If you want to save/restore brightness for backlights on reboot for [Openrc](https://github.com/OpenRC/openrc) (I dont use systemd), install cpplighty.initd and cpplighty.confd via following
+```sh
+cp cpplighty.initd /etc/init.d/cpplighty
+chmod 755 /etc/init.d/cpplighty
+cp cpplighty.confd /etc/conf.d/cpplighty
+chmod 644 /etc/conf.d/cpplighty
+```
